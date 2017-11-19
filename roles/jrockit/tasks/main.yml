@@ -1,0 +1,10 @@
+---
+  - name: Create website directory
+    file: path={{ item }} state=directory mode=0755
+    with_items:
+      - "{{java_home}}"
+      - "{{installer_location}}"
+  - name: copy silent.xml
+    template: src=silent.xml dest="{{ installer_location }}/silent.xml" mode=0755
+  - name: install
+    command: "{{ installer_location }}/jrockit-jdk1.6.0_45-R28.2.7-4.1.0-linux-x64.bin -mode=silent -silent_xml={{ installer_location }}/silent.xml"
